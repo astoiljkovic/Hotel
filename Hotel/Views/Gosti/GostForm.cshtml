@@ -1,0 +1,44 @@
+﻿@model  Hotel.Models.Gost
+@{
+    ViewBag.Title = "GostForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Id == 0)
+{
+    <h2>Dodaj gosta</h2>
+}
+else
+{
+    <h2>Izmijeni gosta</h2> 
+    
+}
+
+@using (Html.BeginForm("Save", "Gosti"))
+{
+    <div class="form-group">
+        @Html.LabelFor(g => g.ImePrezime, "Ime i prezime")
+        @Html.TextBoxFor(g => g.ImePrezime, new { @class = "form-control" })
+        @Html.ValidationMessageFor(g => g.ImePrezime)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(g => g.Email, "Email")
+        @Html.TextBoxFor(g => g.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(g => g.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(g => g.BrojTelefona, "Broj telefona")
+        @Html.TextBoxFor(g => g.BrojTelefona, new { @class = "form-control" })
+        @Html.ValidationMessageFor(g => g.BrojTelefona)
+    </div>
+
+    @Html.HiddenFor(g => g.Id)
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-primary">Sacuvaj</button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

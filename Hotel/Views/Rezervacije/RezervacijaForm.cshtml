@@ -1,0 +1,46 @@
+﻿@model Hotel.ViewModels.RezervacijaFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dodaj rezervaciju</h2>
+
+@using (Html.BeginForm("Save", "Rezervacija"))
+{
+    <div class="form-group">
+        @Html.LabelFor(r => r.Rezervacija.Gost, "Gost")
+        @Html.DropDownListFor(s => s.Rezervacija.Gost, new SelectList(Model.Gosti, "Id", "ImePrezime"), "Izaberi gosta", new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Rezervacija.Gost)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Rezervacija.Soba, "Soba")
+        @Html.DropDownListFor(s => s.Rezervacija.Soba, new SelectList(Model.Sobe, "Id", "Naziv"), "Izaberi sobu", new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Rezervacija.Soba)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Rezervacija.DatumDolaska, "Datum dolaska")
+        @Html.TextBoxFor(r => r.Rezervacija.DatumDolaska, "{0:dd MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Rezervacija.DatumDolaska)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Rezervacija.BrojNocenja, "Broj nocenja")
+        @Html.TextBoxFor(r => r.Rezervacija.BrojNocenja, new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Rezervacija.BrojNocenja)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Rezervacija.NacinPlacanja, "Nacin placanja")
+        @Html.DropDownListFor(r => r.Rezervacija.NacinPlacanja, new SelectList(Model.NacinPlacanja, "Id", "Nacin"), "Izaberite nacin pacanja", new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Rezervacija.NacinPlacanja)
+    </div>
+
+    @Html.HiddenFor(r => r.Rezervacija.Id)
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-primary">Sacuvaj</button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

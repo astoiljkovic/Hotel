@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Hotel.Models.Rezervacija>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rezervacije</h2>
+@if (!Model.Any())
+{
+    <p>Trenutno nemamo rezervacije.</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Gost</th>
+                <th>Soba</th>
+                <th>Datum dolaska</th>
+                <th>Broj nocenja</th>
+                <th>Nacin placanja</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var rezervacija in Model)
+            {
+            <tr>
+                <td>@rezervacija.Gost.ImePrezime</td>
+                <td>@rezervacija.Soba.TipSobe</td>
+                <td>@rezervacija.DatumDolaska</td>
+                <td>@rezervacija.BrojNocenja</td>
+                <td>@rezervacija.NacinPlacanja</td>
+
+                <td>
+                    @using (Html.BeginForm("Edit", "Rezervacije", new { id = rezervacija.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Edit</button>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

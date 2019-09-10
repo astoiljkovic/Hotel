@@ -1,0 +1,50 @@
+﻿@model Hotel.Models.Soba
+@{
+    ViewBag.Title = "SobaForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (Model.Id == 0)
+{
+    <h2>Dodaj sobu</h2>
+}
+else
+{
+    <h2>Izmijeni sobu</h2>
+}
+
+@using (Html.BeginForm("Save", "Sobe"))
+{
+    <div class="form-group">
+        @Html.LabelFor(s => s.TipSobe, "Tip sobe")
+        @Html.TextBoxFor(s => s.TipSobe, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.TipSobe)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Kvadratura, "Kvadratura")
+        @Html.TextBoxFor(s => s.Kvadratura, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Kvadratura)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Lezaj, "Lezaj")
+        @Html.TextBoxFor(s => s.Lezaj, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Kvadratura)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Opis, "Opis")
+        @Html.TextAreaFor(c => c.Opis, htmlAttributes: new { @class = "form-control", @rows = 10, @cols = 30 })
+        @Html.ValidationMessageFor(s => s.Opis)
+    </div>
+
+    @Html.HiddenFor(s => s.Id)
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-primary">Sacuvaj</button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

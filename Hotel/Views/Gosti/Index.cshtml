@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Hotel.Models.Gost>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Gosti</h2>
+@if (!Model.Any())
+{
+    <p>Trenutno nemamo goste.</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Ime i prezime</th>
+                <th>E-mail</th>
+                <th>Broj telefona</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var gost in Model)
+            {
+            <tr>
+                <td>@gost.ImePrezime</td>
+                <td>@gost.Email</td>
+                <td>@gost.BrojTelefona</td>
+
+                <td>
+                    @using (Html.BeginForm("Edit", "Gosti", new { id = gost.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Edit</button>
+                    }
+                </td>
+
+                <td>
+                    @using (Html.BeginForm("Delete", "Gosti", new { id = gost.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Delete</button>
+                    }
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+<button class="btn btn-black">@Html.ActionLink("Dodaj gosta", "New", "Gosti")</button>

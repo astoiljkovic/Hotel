@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Hotel.Models.Soba>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sobe</h2>
+@if (!Model.Any())
+{
+    <p>Trenutno nemamo sobe.</p>
+}
+else
+{
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Tip sobe</th>
+            <th>Lezaj</th>
+            <th>Kvadratura</th>
+            <th>Opis</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var soba in Model)
+        {
+        <tr>
+            <td>@soba.TipSobe</td>
+            <td>@soba.Lezaj</td>
+            <td>@soba.Kvadratura</td>
+            <td>@soba.Opis</td>
+
+            <td>
+                @using (Html.BeginForm("Edit", "Sobe", new { id = soba.Id }))
+                {
+                    <button type="submit" class="btn btn-black">Edit</button>
+                }
+            </td>
+
+            <td>
+                @using (Html.BeginForm("Delete", "Sobe", new { id = soba.Id }))
+                {
+                    <button type="submit" class="btn btn-black">Delete</button>
+                }
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+}
+<button class="btn btn-black">@Html.ActionLink("Dodaj sobu", "New", "Sobe")</button>
